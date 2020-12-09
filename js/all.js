@@ -92,7 +92,7 @@ function getData(){
         markers.addLayer(L.marker([data[i].geometry.coordinates[1],data[i].geometry.coordinates[0]], {icon: iconColor})
         .bindPopup(
             `
-            <div class="poptitle">
+            <div>
                 <h6>${data[i].properties.name}</h6>
                 <span>${data[i].properties.phone}</span>
             </div>
@@ -168,26 +168,32 @@ function filterTownList(e){
 // 更新資料
 function updateList(townList){
     let str = ''
-    str+=`<h5 class='text-center mb-4'>取得口罩的藥局有${townList.length}家</h5>`
+    str+=`
+        <div class="d-flex flex-column justify-content-center align-items-center mb-3">
+            <h4 class='text-center mb-4'>取得口罩的藥局有 <span class="text-success">${townList.length} </span>家</h4>
+            <h6>© 皮傑先生 2020</h6>
+        </div>
+    `
     townList.forEach(item => {
         str+= `
-        <div class="card text-center mb-2 mx-2">
+        <div class="card text-center mb-2 mx-2 bordered">
             <div class="card-header">
                 ${item.properties.name}
             </div>
             <div class="card-body d-flex align-items-start flex-column">
                 <div>
-                    <i class="fas fa-map-marker-alt geoIcon text-danger marker_icon" data-locate="${[item.geometry.coordinates[1], item.geometry.coordinates[0]]}" data-name="${item.properties.name}"></i>
+                    <i class="fas fa-map-marker-alt geoIcon text-danger"></i>
                     <span class="mb-2  ml-2">${item.properties.address}</span>
                 </div>
-                <div>
+                <div class="mt-3">
                     <i class="fas fa-phone  text-success"></i>
                     <span>${item.properties.phone}</span>
                 </div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-around">
-                <div class="p-2 btn btn-secondary ">成人: ${item.properties.mask_adult}</div>
-                <div class="p-2 btn btn-secondary">兒童: ${item.properties.mask_child}</div>
+                <div class="p-2 btn btn-secondary btn-sm">成人: ${item.properties.mask_adult}</div>
+                <div class="p-2 btn btn-success marker_icon btn-sm forward" data-locate="${[item.geometry.coordinates[1], item.geometry.coordinates[0]]}" data-name="${item.properties.name}">前往</div>
+                <div class="p-2 btn btn-secondary btn-sm">兒童: ${item.properties.mask_child}</div>
             </div>
         </div>
         `
