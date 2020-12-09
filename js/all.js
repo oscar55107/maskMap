@@ -1,5 +1,4 @@
 let data = [];
-let filteredTown = [] || data;
 let county = document.querySelector('.county');
 let town = document.querySelector('.town');
 let list = document.querySelector('.list');
@@ -156,6 +155,7 @@ function addTownList(allTown) {
 // 顯示城鄉資料 
 function filterTownList(e){
     let geoData = {}
+    let filteredTown = [] ;
     data.forEach(item => {
         if(item.properties.town === e.target.value) {
             filteredTown.push(item)
